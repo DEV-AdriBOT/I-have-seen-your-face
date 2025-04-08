@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>I Have Seen Your Face</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div class="app">
+    <!-- Cabecera -->
+    <header>
+      <h1>👀 I Have Seen Your Face</h1>
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="visibilityToggle">
+          <span class="slider"></span>
+        </label>
+        <p id="statusText">Oculto 🕶️</p>
+      </div>
+    </header>
+
+    <!-- Lista de Usuarios Mock -->
+    <div class="users-list" id="usersList"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
