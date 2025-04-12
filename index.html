@@ -17,6 +17,7 @@
             --primary: #3A0CA3;
             --secondary: #1A1A1A;
             --accent: #4CAF50;
+            --premium: #FFD700;
             --text-light: #FFFFFF;
             --text-dark: #333333;
             --bg-light: #F5F5F5;
@@ -85,6 +86,71 @@
             cursor: pointer;
         }
         
+        /* Login/Registro */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 20px;
+        }
+        
+        .auth-form {
+            width: 100%;
+            max-width: 350px;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .auth-tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .auth-footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+        
+        .auth-footer a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
         /* Onboarding */
         .onboarding {
             display: flex;
@@ -142,6 +208,12 @@
         .btn-accent {
             background-color: var(--accent);
             color: white;
+        }
+        
+        .btn-premium {
+            background-color: var(--premium);
+            color: var(--secondary);
+            font-weight: 700;
         }
         
         .btn-outline {
@@ -273,6 +345,12 @@
             transition: transform 0.2s;
         }
         
+        .user-marker.premium {
+            background-color: var(--premium);
+            color: var(--secondary);
+            border: 2px solid white;
+        }
+        
         .user-marker:active {
             transform: translate(-50%, -50%) scale(1.1);
         }
@@ -292,6 +370,20 @@
             border-radius: 15px;
             margin-bottom: 15px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .user-card.premium::after {
+            content: 'PREMIUM';
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background-color: var(--premium);
+            color: var(--secondary);
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
         }
         
         .user-avatar {
@@ -306,6 +398,11 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin-right: 15px;
+        }
+        
+        .user-avatar.premium {
+            background-color: var(--premium);
+            color: var(--secondary);
         }
         
         .user-info {
@@ -358,6 +455,11 @@
             margin: 30px 0;
         }
         
+        .profile-avatar.premium {
+            background-color: var(--premium);
+            color: var(--secondary);
+        }
+        
         .profile-info {
             width: 100%;
             background-color: var(--bg-light);
@@ -379,6 +481,15 @@
         .info-value {
             font-size: 1.1rem;
             font-weight: 500;
+        }
+        
+        .edit-name-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1rem;
+            margin-left: 5px;
+            cursor: pointer;
         }
         
         /* Chat */
@@ -472,6 +583,54 @@
             cursor: pointer;
         }
         
+        /* Premium */
+        .premium-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .premium-card {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            text-align: center;
+        }
+        
+        .premium-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .premium-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .premium-card .price span {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+        
+        .premium-features {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .premium-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .premium-feature i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
         /* Toast */
         .toast {
             position: fixed;
@@ -490,6 +649,61 @@
         
         .toast.show {
             opacity: 1;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         
         /* Animaciones */
@@ -537,13 +751,67 @@
         .nav-item.active {
             color: var(--primary);
         }
+        
+        .nav-premium {
+            color: var(--premium);
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="app-container">
+        <!-- Login/Registro -->
+        <div class="screen active" id="auth">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="login-tab">Iniciar sesión</div>
+                    <div class="auth-tab" id="register-tab">Registrarse</div>
+                </div>
+                
+                <div class="auth-form">
+                    <div id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Correo electrónico</label>
+                            <input type="email" id="login-email" placeholder="tucorreo@ejemplo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Contraseña</label>
+                            <input type="password" id="login-password" placeholder="••••••••">
+                        </div>
+                        <button class="btn btn-primary btn-block" id="login-btn">Iniciar sesión</button>
+                        <div class="auth-footer">
+                            ¿No tienes cuenta? <a href="#" id="show-register">Regístrate aquí</a>
+                        </div>
+                    </div>
+                    
+                    <div id="register-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="register-name">Nombre de usuario</label>
+                            <input type="text" id="register-name" placeholder="Como te verán otros">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Correo electrónico</label>
+                            <input type="email" id="register-email" placeholder="tucorreo@ejemplo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Contraseña</label>
+                            <input type="password" id="register-password" placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-confirm">Confirmar contraseña</label>
+                            <input type="password" id="register-confirm" placeholder="••••••••">
+                        </div>
+                        <button class="btn btn-primary btn-block" id="register-btn">Registrarse</button>
+                        <div class="auth-footer">
+                            ¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión aquí</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Onboarding -->
-        <div class="screen active" id="onboarding">
+        <div class="screen" id="onboarding">
             <div class="onboarding">
                 <img src="https://via.placeholder.com/200" alt="I have seen your face Logo">
                 <h2>I have seen your face</h2>
@@ -556,6 +824,7 @@
         <div class="screen" id="visibility">
             <div class="header">
                 <h1>I have seen your face</h1>
+                <button class="icon-button" id="premium-btn"><i class="fas fa-crown" style="color: var(--premium);"></i></button>
             </div>
             
             <div class="visibility-toggle">
@@ -581,6 +850,10 @@
                 <a href="#" class="nav-item" data-screen="chat-list">
                     <i class="fas fa-comments"></i>
                     <span>Chats</span>
+                </a>
+                <a href="#" class="nav-item nav-premium" data-screen="premium">
+                    <i class="fas fa-crown"></i>
+                    <span>Premium</span>
                 </a>
             </div>
         </div>
@@ -618,6 +891,10 @@
                     <i class="fas fa-comments"></i>
                     <span>Chats</span>
                 </a>
+                <a href="#" class="nav-item nav-premium" data-screen="premium">
+                    <i class="fas fa-crown"></i>
+                    <span>Premium</span>
+                </a>
             </div>
         </div>
         
@@ -635,7 +912,10 @@
                 <div class="profile-info">
                     <div class="info-item">
                         <div class="info-label">Nombre</div>
-                        <div class="info-value" id="profile-name">JuanP</div>
+                        <div class="info-value">
+                            <span id="profile-name">JuanP</span>
+                            <button class="edit-name-btn" id="edit-name-btn"><i class="fas fa-pencil-alt"></i></button>
+                        </div>
                     </div>
                     <div class="info-item">
                         <div class="info-label">Último encuentro</div>
@@ -708,34 +988,97 @@
                     <i class="fas fa-comments"></i>
                     <span>Chats</span>
                 </a>
+                <a href="#" class="nav-item nav-premium" data-screen="premium">
+                    <i class="fas fa-crown"></i>
+                    <span>Premium</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Premium -->
+        <div class="screen" id="premium">
+            <div class="header">
+                <button class="icon-button" id="back-from-premium"><i class="fas fa-arrow-left"></i></button>
+                <h1>I have seen your face Premium</h1>
+                <div style="width: 24px;"></div>
+            </div>
+            
+            <div class="premium-container">
+                <div class="premium-card">
+                    <h2>MEMBRESÍA PREMIUM</h2>
+                    <div class="price">4€ <span>/ mes</span></div>
+                    <button class="btn btn-premium">SUSCRIBIRME</button>
+                </div>
+                
+                <h3 style="margin-bottom: 15px;">Beneficios exclusivos:</h3>
+                <div class="premium-features">
+                    <div class="premium-feature">
+                        <i class="fas fa-check-circle" style="color: var(--premium);"></i>
+                        <span>Ver personas que estuvieron en los mismos lugares aunque ya no estén allí</span>
+                    </div>
+                    <div class="premium-feature">
+                        <i class="fas fa-check-circle" style="color: var(--premium);"></i>
+                        <span>Cambiar tu nombre visible cuando quieras</span>
+                    </div>
+                    <div class="premium-feature">
+                        <i class="fas fa-check-circle" style="color: var(--premium);"></i>
+                        <span>Historial de encuentros de hasta 1 semana</span>
+                    </div>
+                    <div class="premium-feature">
+                        <i class="fas fa-check-circle" style="color: var(--premium);"></i>
+                        <span>Perfil destacado en búsquedas</span>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- Toast -->
         <div class="toast" id="toast"></div>
+        
+        <!-- Modal para editar nombre -->
+        <div class="modal-overlay" id="name-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Editar nombre</h2>
+                    <button class="modal-close" id="close-name-modal">&times;</button>
+                </div>
+                <div class="form-group">
+                    <label for="new-name">Nuevo nombre visible</label>
+                    <input type="text" id="new-name" placeholder="Ej: Chico del jersey azul">
+                </div>
+                <button class="btn btn-primary" id="save-name-btn">Guardar</button>
+            </div>
+        </div>
     </div>
 
     <script>
         // Datos mock
         const mockUsers = [
-            { id: 1, name: "AnaM", distance: "120m", location: "Librería Páginas, hoy a las 14:15", avatar: "A" },
-            { id: 2, name: "CarlosR", distance: "250m", location: "Parque Central, ayer a las 18:30", avatar: "C" },
-            { id: 3, name: "LauraG", distance: "80m", location: "Café Central, hoy a las 15:30", avatar: "L" },
-            { id: 4, name: "MiguelT", distance: "500m", location: "Gimnasio Fit, hoy a las 10:00", avatar: "M" },
-            { id: 5, name: "SofíaP", distance: "320m", location: "Tienda de ropa, ayer a las 16:45", avatar: "S" }
+            { id: 1, name: "AnaM", distance: "120m", location: "Librería Páginas, hoy a las 14:15", avatar: "A", premium: false },
+            { id: 2, name: "CarlosR", distance: "250m", location: "Parque Central, ayer a las 18:30", avatar: "C", premium: true },
+            { id: 3, name: "LauraG", distance: "80m", location: "Café Central, hoy a las 15:30", avatar: "L", premium: false },
+            { id: 4, name: "MiguelT", distance: "500m", location: "Gimnasio Fit, hoy a las 10:00", avatar: "M", premium: false },
+            { id: 5, name: "SofíaP", distance: "320m", location: "Tienda de ropa, ayer a las 16:45", avatar: "S", premium: true },
+            { id: 6, name: "Chico del jersey azul", distance: "180m", location: "Concierto de ayer, 21:30", avatar: "C", premium: true },
+            { id: 7, name: "Chica con sombrero", distance: "420m", location: "Exposición de arte, hace 2 días", avatar: "S", premium: true }
         ];
         
         const mockChats = [
-            { userId: 1, name: "AnaM", lastMessage: "Nos vemos mañana entonces!", time: "10:30", unread: 2, avatar: "A" },
-            { userId: 3, name: "LauraG", lastMessage: "Gracias por la recomendación!", time: "Ayer", unread: 0, avatar: "L" },
-            { userId: 5, name: "SofíaP", lastMessage: "¿Eras tú en el concierto?", time: "Lunes", unread: 1, avatar: "S" }
+            { userId: 1, name: "AnaM", lastMessage: "Nos vemos mañana entonces!", time: "10:30", unread: 2, avatar: "A", premium: false },
+            { userId: 3, name: "LauraG", lastMessage: "Gracias por la recomendación!", time: "Ayer", unread: 0, avatar: "L", premium: false },
+            { userId: 5, name: "SofíaP", lastMessage: "¿Eras tú en el concierto?", time: "Lunes", unread: 1, avatar: "S", premium: true },
+            { userId: 6, name: "Chico del jersey azul", lastMessage: "Me encantó tu camiseta!", time: "Ayer", unread: 0, avatar: "C", premium: true }
         ];
         
         // Variables de estado
-        let currentScreen = "onboarding";
+        let currentScreen = "auth";
         let isVisible = false;
         let currentView = "map"; // 'map' o 'list'
         let currentProfile = null;
+        let currentUser = {
+            name: "UsuarioNuevo",
+            premium: false
+        };
         
         // Elementos del DOM
         const screens = document.querySelectorAll('.screen');
@@ -756,6 +1099,23 @@
         const toast = document.getElementById('toast');
         const navItems = document.querySelectorAll('.nav-item');
         const chatUserList = document.getElementById('chat-user-list');
+        const loginTab = document.getElementById('login-tab');
+        const registerTab = document.getElementById('register-tab');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const premiumBtn = document.getElementById('premium-btn');
+        const premiumScreen = document.getElementById('premium');
+        const backFromPremium = document.getElementById('back-from-premium');
+        const editNameBtn = document.getElementById('edit-name-btn');
+        const nameModal = document.getElementById('name-modal');
+        const closeNameModal = document.getElementById('close-name-modal');
+        const saveNameBtn = document.getElementById('save-name-btn');
+        const newNameInput = document.getElementById('new-name');
+        const profileName = document.getElementById('profile-name');
         
         // Inicialización
         document.addEventListener('DOMContentLoaded', () => {
@@ -829,6 +1189,106 @@
                     item.classList.add('active');
                 });
             });
+            
+            // Login/Registro
+            loginTab.addEventListener('click', () => {
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            });
+            
+            registerTab.addEventListener('click', () => {
+                registerTab.classList.add('active');
+                loginTab.classList.remove('active');
+                registerForm.style.display = 'block';
+                loginForm.style.display = 'none';
+            });
+            
+            showRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerTab.click();
+            });
+            
+            showLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginTab.click();
+            });
+            
+            loginBtn.addEventListener('click', () => {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                if (email && password) {
+                    // Simular login exitoso
+                    showToast('Inicio de sesión exitoso');
+                    setTimeout(() => {
+                        showScreen('onboarding');
+                    }, 1000);
+                } else {
+                    showToast('Por favor completa todos los campos');
+                }
+            });
+            
+            registerBtn.addEventListener('click', () => {
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const confirm = document.getElementById('register-confirm').value;
+                
+                if (name && email && password && confirm) {
+                    if (password === confirm) {
+                        // Simular registro exitoso
+                        currentUser.name = name;
+                        showToast('Registro exitoso');
+                        setTimeout(() => {
+                            showScreen('onboarding');
+                        }, 1000);
+                    } else {
+                        showToast('Las contraseñas no coinciden');
+                    }
+                } else {
+                    showToast('Por favor completa todos los campos');
+                }
+            });
+            
+            // Premium
+            premiumBtn.addEventListener('click', () => {
+                showScreen('premium');
+            });
+            
+            backFromPremium.addEventListener('click', () => {
+                showScreen('visibility');
+            });
+            
+            // Editar nombre
+            editNameBtn.addEventListener('click', () => {
+                if (currentUser.premium) {
+                    newNameInput.value = currentUser.name;
+                    nameModal.classList.add('active');
+                } else {
+                    showToast('Necesitas ser premium para cambiar tu nombre');
+                    setTimeout(() => {
+                        showScreen('premium');
+                    }, 1000);
+                }
+            });
+            
+            closeNameModal.addEventListener('click', () => {
+                nameModal.classList.remove('active');
+            });
+            
+            saveNameBtn.addEventListener('click', () => {
+                const newName = newNameInput.value.trim();
+                if (newName) {
+                    currentUser.name = newName;
+                    profileName.textContent = newName;
+                    nameModal.classList.remove('active');
+                    showToast('Nombre actualizado');
+                } else {
+                    showToast('El nombre no puede estar vacío');
+                }
+            });
         }
         
         function toggleVisibility() {
@@ -865,7 +1325,7 @@
             mockUsers.forEach(user => {
                 // Marcador en el mapa
                 const marker = document.createElement('div');
-                marker.className = 'user-marker';
+                marker.className = `user-marker ${user.premium ? 'premium' : ''}`;
                 marker.innerHTML = user.avatar;
                 marker.style.left = `${10 + Math.random() * 80}%`;
                 marker.style.top = `${10 + Math.random() * 80}%`;
@@ -876,10 +1336,10 @@
                 
                 // Tarjeta en la lista
                 const card = document.createElement('div');
-                card.className = 'user-card slide-up';
+                card.className = `user-card slide-up ${user.premium ? 'premium' : ''}`;
                 card.style.animationDelay = `${0.1 * mockUsers.indexOf(user)}s`;
                 card.innerHTML = `
-                    <div class="user-avatar">${user.avatar}</div>
+                    <div class="user-avatar ${user.premium ? 'premium' : ''}">${user.avatar}</div>
                     <div class="user-info">
                         <div class="user-name">${user.name}</div>
                         <div class="user-distance">A ${user.distance} de ti</div>
@@ -911,17 +1371,17 @@
             
             mockChats.forEach(chat => {
                 const chatItem = document.createElement('div');
-                chatItem.className = 'user-card slide-up';
+                chatItem.className = `user-card slide-up ${chat.premium ? 'premium' : ''}`;
                 chatItem.style.animationDelay = `${0.1 * mockChats.indexOf(chat)}s`;
                 chatItem.innerHTML = `
-                    <div class="user-avatar">${chat.avatar}</div>
+                    <div class="user-avatar ${chat.premium ? 'premium' : ''}">${chat.avatar}</div>
                     <div class="user-info">
                         <div class="user-name">${chat.name}</div>
                         <div class="user-distance">${chat.lastMessage}</div>
                     </div>
                     <div style="text-align: right;">
                         <div style="font-size: 0.8rem; color: var(--dark-gray);">${chat.time}</div>
-                        ${chat.unread > 0 ? `<div class="unread-badge">${chat.unread}</div>` : ''}
+                        ${chat.unread > 0 ? `<div style="background-color: var(--primary); color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; margin-top: 5px;">${chat.unread}</div>` : ''}
                     </div>
                 `;
                 chatUserList.appendChild(chatItem);
@@ -941,13 +1401,18 @@
         
         function showUserProfile(user) {
             currentProfile = user;
-            document.getElementById('profile-avatar').textContent = user.avatar;
+            const profileAvatar = document.getElementById('profile-avatar');
+            profileAvatar.textContent = user.avatar;
+            profileAvatar.className = `profile-avatar ${user.premium ? 'premium' : ''}`;
+            
             document.getElementById('profile-name').textContent = user.name;
             document.getElementById('profile-location').textContent = user.location;
             document.getElementById('profile-distance').textContent = `A ${user.distance} de ti`;
             
             // Actualizar también el chat por si acaso
-            document.getElementById('chat-avatar').textContent = user.avatar;
+            const chatAvatar = document.getElementById('chat-avatar');
+            chatAvatar.textContent = user.avatar;
+            chatAvatar.className = `user-avatar ${user.premium ? 'premium' : ''}`;
             document.getElementById('chat-name').textContent = user.name;
             
             showScreen('profile');
