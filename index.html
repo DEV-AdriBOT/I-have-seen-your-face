@@ -4,36 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhoSaw - ¿Quién te ha visto hoy?</title>
+    
+    <!-- Fuente personalizada Special Gothic Expanded One -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+    
     <style>
+        /* 
+        ************************************************************
+        * ESTILOS GENERALES Y CONFIGURACIONES PERSONALIZABLES
+        ************************************************************
+        */
+        
         /* Reset y estilos base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: "Special Gothic Expanded One", sans-serif; /* Fuente personalizada */
         }
         
+        /* 
+        * Configuración de colores:
+        * - Los colores principales se definen como variables CSS
+        * - Para cambiar la paleta de colores, modificar estos valores
+        */
         :root {
-            --primary: #3A0CA3;
-            --secondary: #1A1A1A;
-            --accent: #4CAF50;
-            --premium: #FFD700;
-            --text-light: #FFFFFF;
-            --text-dark: #333333;
-            --bg-light: #F5F5F5;
-            --bg-dark: #121212;
-            --gray: #CCCCCC;
-            --dark-gray: #555555;
+            --primary: #3A0CA3;       /* Color principal (morado oscuro) */
+            --secondary: #1A1A1A;     /* Color secundario (negro) */
+            --accent: #4CAF50;        /* Color de acento (verde) */
+            --premium: #FFD700;       /* Color premium (dorado) */
+            --text-light: #FFFFFF;    /* Texto claro */
+            --text-dark: #333333;     /* Texto oscuro */
+            --bg-light: #F5F5F5;      /* Fondo claro */
+            --bg-dark: #121212;       /* Fondo oscuro */
+            --gray: #CCCCCC;          /* Gris */
+            --dark-gray: #555555;     /* Gris oscuro */
         }
         
+        /* 
+        * Configuración del fondo:
+        * - Para cambiar la imagen de fondo, modificar la URL de background-image
+        * - Asegurarse de que la imagen 'fondo.png' esté en la misma carpeta
+        */
         body {
-            background-color: var(--bg-light);
+            background-image: url('fondo.png'); /* Imagen de fondo */
+            background-size: cover;             /* Cubre toda la pantalla */
+            background-position: center;        /* Centra la imagen */
+            background-attachment: fixed;       /* Fondo fijo al desplazar */
+            background-repeat: no-repeat;       /* No repetir la imagen */
             color: var(--text-dark);
             height: 100vh;
             overflow-x: hidden;
         }
         
-        /* Contenedor principal */
+        /* 
+        * Contenedor principal de la aplicación:
+        * - max-width define el ancho máximo en pantallas grandes
+        * - background-color con opacidad para que se vea el fondo
+        */
         .app-container {
             width: 100%;
             max-width: 500px;
@@ -41,9 +71,15 @@
             height: 100vh;
             position: relative;
             overflow: hidden;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
+        
+        /* 
+        ************************************************************
+        * ESTILOS COMPONENTES (NO TOCAR A MENOS QUE SEA NECESARIO)
+        ************************************************************
+        */
         
         /* Pantallas */
         .screen {
@@ -56,7 +92,7 @@
             display: none;
             flex-direction: column;
             transition: transform 0.3s ease;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.95); /* Fondo más opaco para legibilidad */
         }
         
         .screen.active {
@@ -136,6 +172,7 @@
             border: 1px solid var(--gray);
             border-radius: 8px;
             font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
         }
         
         .auth-footer {
@@ -366,7 +403,7 @@
             display: flex;
             align-items: center;
             padding: 15px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             margin-bottom: 15px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -462,7 +499,7 @@
         
         .profile-info {
             width: 100%;
-            background-color: var(--bg-light);
+            background-color: rgba(245, 245, 245, 0.9);
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 30px;
@@ -543,7 +580,7 @@
         
         .received {
             align-self: flex-start;
-            background-color: var(--bg-light);
+            background-color: rgba(245, 245, 245, 0.9);
             border-bottom-left-radius: 5px;
         }
         
@@ -567,6 +604,7 @@
             border-radius: 25px;
             margin-right: 10px;
             font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.8);
         }
         
         .send-btn {
@@ -730,7 +768,7 @@
             display: flex;
             justify-content: space-around;
             padding: 15px 0;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.95);
             border-top: 1px solid var(--gray);
         }
         
@@ -1052,7 +1090,14 @@
     </div>
 
     <script>
-        // Datos mock
+        /* 
+        ************************************************************
+        * CONFIGURACIÓN DE DATOS MOCK (SIMULADOS)
+        * - Estos datos se pueden modificar para personalizar la app
+        ************************************************************
+        */
+        
+        // Lista de usuarios simulados
         const mockUsers = [
             { id: 1, name: "AnaM", distance: "120m", location: "Librería Páginas, hoy a las 14:15", avatar: "A", premium: false },
             { id: 2, name: "CarlosR", distance: "250m", location: "Parque Central, ayer a las 18:30", avatar: "C", premium: true },
@@ -1063,6 +1108,7 @@
             { id: 7, name: "Chica con sombrero", distance: "420m", location: "Exposición de arte, hace 2 días", avatar: "S", premium: true }
         ];
         
+        // Lista de chats simulados
         const mockChats = [
             { userId: 1, name: "AnaM", lastMessage: "Nos vemos mañana entonces!", time: "10:30", unread: 2, avatar: "A", premium: false },
             { userId: 3, name: "LauraG", lastMessage: "Gracias por la recomendación!", time: "Ayer", unread: 0, avatar: "L", premium: false },
@@ -1070,63 +1116,38 @@
             { userId: 6, name: "Chico del jersey azul", lastMessage: "Me encantó tu camiseta!", time: "Ayer", unread: 0, avatar: "C", premium: true }
         ];
         
-        // Variables de estado
-        let currentScreen = "auth";
-        let isVisible = false;
-        let currentView = "map"; // 'map' o 'list'
-        let currentProfile = null;
+        /* 
+        ************************************************************
+        * VARIABLES DE ESTADO DE LA APLICACIÓN
+        * - Controlan el funcionamiento interno de la app
+        ************************************************************
+        */
+        let currentScreen = "auth";   // Pantalla actual visible
+        let isVisible = false;       // Estado de visibilidad del usuario
+        let currentView = "map";     // Vista actual (mapa/lista)
+        let currentProfile = null;   // Perfil de usuario actualmente visualizado
+        
+        // Datos del usuario actual (simulado)
         let currentUser = {
             name: "UsuarioNuevo",
             premium: false
         };
         
-        // Elementos del DOM
-        const screens = document.querySelectorAll('.screen');
-        const toggleSwitch = document.querySelector('.toggle-switch');
-        const toggleKnob = document.querySelector('.toggle-knob');
-        const toggleLabel = document.querySelector('.toggle-label');
-        const mapView = document.getElementById('map-view');
-        const listView = document.getElementById('list-view');
-        const mapViewBtn = document.getElementById('map-view-btn');
-        const listViewBtn = document.getElementById('list-view-btn');
-        const startBtn = document.getElementById('start-btn');
-        const backToMapBtn = document.getElementById('back-to-map');
-        const backToProfileBtn = document.getElementById('back-to-profile');
-        const sendMessageBtn = document.getElementById('send-message-btn');
-        const chatMessages = document.getElementById('chat-messages');
-        const messageInput = document.getElementById('message-input');
-        const sendBtn = document.getElementById('send-btn');
-        const toast = document.getElementById('toast');
-        const navItems = document.querySelectorAll('.nav-item');
-        const chatUserList = document.getElementById('chat-user-list');
-        const loginTab = document.getElementById('login-tab');
-        const registerTab = document.getElementById('register-tab');
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const showRegister = document.getElementById('show-register');
-        const showLogin = document.getElementById('show-login');
-        const loginBtn = document.getElementById('login-btn');
-        const registerBtn = document.getElementById('register-btn');
-        const premiumBtn = document.getElementById('premium-btn');
-        const premiumScreen = document.getElementById('premium');
-        const backFromPremium = document.getElementById('back-from-premium');
-        const editNameBtn = document.getElementById('edit-name-btn');
-        const nameModal = document.getElementById('name-modal');
-        const closeNameModal = document.getElementById('close-name-modal');
-        const saveNameBtn = document.getElementById('save-name-btn');
-        const newNameInput = document.getElementById('new-name');
-        const profileName = document.getElementById('profile-name');
+        /* 
+        ************************************************************
+        * FUNCIONES PRINCIPALES DE LA APLICACIÓN
+        * - Gestionan la lógica y comportamiento de la interfaz
+        ************************************************************
+        */
         
-        // Inicialización
+        // Inicialización de la aplicación
         document.addEventListener('DOMContentLoaded', () => {
-            // Configurar eventos
-            setupEventListeners();
-            
-            // Cargar datos mock
-            loadMockUsers();
-            loadMockChats();
+            setupEventListeners();  // Configurar eventos
+            loadMockUsers();        // Cargar usuarios simulados
+            loadMockChats();        // Cargar chats simulados
         });
         
+        // Configura todos los event listeners
         function setupEventListeners() {
             // Toggle de visibilidad
             toggleSwitch.addEventListener('click', toggleVisibility);
@@ -1291,31 +1312,7 @@
             });
         }
         
-        function toggleVisibility() {
-            isVisible = !isVisible;
-            
-            if (isVisible) {
-                toggleSwitch.classList.add('active');
-                toggleKnob.classList.add('active');
-                toggleKnob.innerHTML = '<i class="fas fa-eye"></i>';
-                toggleLabel.textContent = 'Visible';
-                toggleLabel.classList.add('active');
-                showToast('Ahora eres visible para otros usuarios cerca de ti');
-            } else {
-                toggleSwitch.classList.remove('active');
-                toggleKnob.classList.remove('active');
-                toggleKnob.innerHTML = '<i class="fas fa-eye-slash"></i>';
-                toggleLabel.textContent = 'Oculto';
-                toggleLabel.classList.remove('active');
-                showToast('Modo oculto activado');
-            }
-            
-            // Simular vibración
-            if (navigator.vibrate) {
-                navigator.vibrate(50);
-            }
-        }
-        
+        // Carga usuarios simulados en el mapa/lista
         function loadMockUsers() {
             // Limpiar vistas
             mapView.innerHTML = '';
@@ -1366,6 +1363,7 @@
             });
         }
         
+        // Carga chats simulados en la lista
         function loadMockChats() {
             chatUserList.innerHTML = '';
             
@@ -1399,6 +1397,7 @@
             });
         }
         
+        // Muestra el perfil de un usuario
         function showUserProfile(user) {
             currentProfile = user;
             const profileAvatar = document.getElementById('profile-avatar');
@@ -1418,6 +1417,7 @@
             showScreen('profile');
         }
         
+        // Envía un mensaje en el chat
         function sendMessage() {
             const message = messageInput.value.trim();
             if (message) {
@@ -1459,6 +1459,7 @@
             }
         }
         
+        // Cambia entre pantallas de la aplicación
         function showScreen(screenId) {
             // Ocultar pantalla actual
             document.querySelector(`.screen.active`).classList.remove('active');
@@ -1477,6 +1478,7 @@
             }
         }
         
+        // Muestra un mensaje toast temporal
         function showToast(message) {
             toast.textContent = message;
             toast.classList.add('show');
@@ -1484,6 +1486,32 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+        
+        // Cambia el estado de visibilidad del usuario
+        function toggleVisibility() {
+            isVisible = !isVisible;
+            
+            if (isVisible) {
+                toggleSwitch.classList.add('active');
+                toggleKnob.classList.add('active');
+                toggleKnob.innerHTML = '<i class="fas fa-eye"></i>';
+                toggleLabel.textContent = 'Visible';
+                toggleLabel.classList.add('active');
+                showToast('Ahora eres visible para otros usuarios cerca de ti');
+            } else {
+                toggleSwitch.classList.remove('active');
+                toggleKnob.classList.remove('active');
+                toggleKnob.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                toggleLabel.textContent = 'Oculto';
+                toggleLabel.classList.remove('active');
+                showToast('Modo oculto activado');
+            }
+            
+            // Simular vibración
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
         }
     </script>
 </body>
