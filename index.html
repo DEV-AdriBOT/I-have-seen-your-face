@@ -45,15 +45,10 @@
         
         /* 
         * Configuración del fondo:
-        * - Para cambiar la imagen de fondo, modificar la URL de background-image
-        * - Asegurarse de que la imagen 'fondo.png' esté en la misma carpeta
+        * Cambiado a un fondo sólido para mejor visualización en móvil
         */
         body {
-            background-image: url('fondo.png'); /* Imagen de fondo */
-            background-size: cover;             /* Cubre toda la pantalla */
-            background-position: center;        /* Centra la imagen */
-            background-attachment: fixed;       /* Fondo fijo al desplazar */
-            background-repeat: no-repeat;       /* No repetir la imagen */
+            background-color: var(--bg-light);
             color: var(--text-dark);
             height: 100vh;
             overflow-x: hidden;
@@ -71,7 +66,7 @@
             height: 100vh;
             position: relative;
             overflow: hidden;
-            background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+            background-color: white;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
         
@@ -92,7 +87,7 @@
             display: none;
             flex-direction: column;
             transition: transform 0.3s ease;
-            background-color: rgba(255, 255, 255, 0.95); /* Fondo más opaco para legibilidad */
+            background-color: white;
         }
         
         .screen.active {
@@ -1142,21 +1137,8 @@
         
         // Inicialización de la aplicación
         document.addEventListener('DOMContentLoaded', () => {
-            setupEventListeners();  // Configurar eventos
-            loadMockUsers();        // Cargar usuarios simulados
-            loadMockChats();        // Cargar chats simulados
-        });
-        
-        // Configura todos los event listeners
-        function setupEventListeners() {
-            // Toggle de visibilidad
-            toggleSwitch.addEventListener('click', toggleVisibility);
-            toggleKnob.addEventListener('click', toggleVisibility);
-            
-            // Botón de comenzar
-            startBtn.addEventListener('click', () => {
-                showScreen('visibility');
-                const loginTab = document.getElementById('login-tab');
+            // Obtener referencias a los elementos del DOM
+            const loginTab = document.getElementById('login-tab');
             const registerTab = document.getElementById('register-tab');
             const loginForm = document.getElementById('login-form');
             const registerForm = document.getElementById('register-form');
@@ -1190,6 +1172,36 @@
             const saveNameBtn = document.getElementById('save-name-btn');
             const profileName = document.getElementById('profile-name');
 
+            // Configurar event listeners
+            setupEventListeners(
+                loginTab, registerTab, loginForm, registerForm, showRegister, showLogin, 
+                loginBtn, registerBtn, toast, startBtn, toggleSwitch, toggleKnob, 
+                toggleLabel, mapViewBtn, listViewBtn, mapView, listView, navItems, 
+                backToMapBtn, backToProfileBtn, sendMessageBtn, messageInput, sendBtn, 
+                chatMessages, chatUserList, premiumBtn, backFromPremium, editNameBtn, 
+                newNameInput, nameModal, closeNameModal, saveNameBtn, profileName
+            );
+            
+            loadMockUsers();        // Cargar usuarios simulados
+            loadMockChats();        // Cargar chats simulados
+        });
+        
+        // Configura todos los event listeners
+        function setupEventListeners(
+            loginTab, registerTab, loginForm, registerForm, showRegister, showLogin, 
+            loginBtn, registerBtn, toast, startBtn, toggleSwitch, toggleKnob, 
+            toggleLabel, mapViewBtn, listViewBtn, mapView, listView, navItems, 
+            backToMapBtn, backToProfileBtn, sendMessageBtn, messageInput, sendBtn, 
+            chatMessages, chatUserList, premiumBtn, backFromPremium, editNameBtn, 
+            newNameInput, nameModal, closeNameModal, saveNameBtn, profileName
+        ) {
+            // Toggle de visibilidad
+            toggleSwitch.addEventListener('click', toggleVisibility);
+            toggleKnob.addEventListener('click', toggleVisibility);
+            
+            // Botón de comenzar
+            startBtn.addEventListener('click', () => {
+                showScreen('visibility');
             });
             
             // Cambiar entre vista mapa y lista
@@ -1223,10 +1235,10 @@
             });
             
             // Chat
-            sendBtn.addEventListener('click', sendMessage);
+            sendBtn.addEventListener('click', () => sendMessage(messageInput, chatMessages, toast));
             messageInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
-                    sendMessage();
+                    sendMessage(messageInput, chatMessages, toast);
                 }
             });
             
@@ -1274,14 +1286,14 @@
                 const email = document.getElementById('login-email').value;
                 const password = document.getElementById('login-password').value;
                 
-                if (email && password) {
-                    // Simular login exitoso
-                    showToast('Inicio de sesión exitoso');
+                // Cualquier combinación de email/password funciona
+                if (email || password) {
+                    showToast('Inicio de sesión exitoso', toast);
                     setTimeout(() => {
                         showScreen('onboarding');
                     }, 1000);
                 } else {
-                    showToast('Por favor completa todos los campos');
+                    showToast('Por favor ingresa algún dato', toast);
                 }
             });
             
@@ -1291,19 +1303,20 @@
                 const password = document.getElementById('register-password').value;
                 const confirm = document.getElementById('register-confirm').value;
                 
-                if (name && email && password && confirm) {
-                    if (password === confirm) {
+                if (name || email || password || confirm) {
+                    // Cualquier combinación funciona, pero verificamos que las contraseñas coincidan si se ingresaron
+                    if (password && password !== confirm) {
+                        showToast('Las contraseñas no coinciden', toast);
+                    } else {
                         // Simular registro exitoso
-                        currentUser.name = name;
-                        showToast('Registro exitoso');
+                        currentUser.name = name || "Usuario" + Math.floor(Math.random() * 1000);
+                        showToast('Registro exitoso', toast);
                         setTimeout(() => {
                             showScreen('onboarding');
                         }, 1000);
-                    } else {
-                        showToast('Las contraseñas no coinciden');
                     }
                 } else {
-                    showToast('Por favor completa todos los campos');
+                    showToast('Por favor completa algún campo', toast);
                 }
             });
             
@@ -1322,7 +1335,7 @@
                     newNameInput.value = currentUser.name;
                     nameModal.classList.add('active');
                 } else {
-                    showToast('Necesitas ser premium para cambiar tu nombre');
+                    showToast('Necesitas ser premium para cambiar tu nombre', toast);
                     setTimeout(() => {
                         showScreen('premium');
                     }, 1000);
@@ -1339,15 +1352,18 @@
                     currentUser.name = newName;
                     profileName.textContent = newName;
                     nameModal.classList.remove('active');
-                    showToast('Nombre actualizado');
+                    showToast('Nombre actualizado', toast);
                 } else {
-                    showToast('El nombre no puede estar vacío');
+                    showToast('El nombre no puede estar vacío', toast);
                 }
             });
         }
         
         // Carga usuarios simulados en el mapa/lista
         function loadMockUsers() {
+            const mapView = document.getElementById('map-view');
+            const listView = document.getElementById('list-view');
+            
             // Limpiar vistas
             mapView.innerHTML = '';
             listView.innerHTML = '';
@@ -1384,7 +1400,7 @@
                 // Evento para el botón de señal
                 card.querySelector('.signal-btn').addEventListener('click', (e) => {
                     e.stopPropagation();
-                    showToast(`Señal enviada a ${user.name}`);
+                    showToast(`Señal enviada a ${user.name}`, document.getElementById('toast'));
                     if (navigator.vibrate) {
                         navigator.vibrate([100, 50, 100]);
                     }
@@ -1399,6 +1415,7 @@
         
         // Carga chats simulados en la lista
         function loadMockChats() {
+            const chatUserList = document.getElementById('chat-user-list');
             chatUserList.innerHTML = '';
             
             mockChats.forEach(chat => {
@@ -1452,7 +1469,7 @@
         }
         
         // Envía un mensaje en el chat
-        function sendMessage() {
+        function sendMessage(messageInput, chatMessages, toast) {
             const message = messageInput.value.trim();
             if (message) {
                 const messageElement = document.createElement('div');
@@ -1486,7 +1503,7 @@
                 }, 1000 + Math.random() * 2000);
                 
                 // Mostrar toast y vibrar
-                showToast('Mensaje enviado');
+                showToast('Mensaje enviado', toast);
                 if (navigator.vibrate) {
                     navigator.vibrate(50);
                 }
@@ -1504,26 +1521,31 @@
             
             // Scroll al inicio en las pantallas que lo necesiten
             if (screenId === 'map-list' && currentView === 'list') {
-                listView.scrollTop = 0;
+                document.getElementById('list-view').scrollTop = 0;
             } else if (screenId === 'chat-list') {
-                chatUserList.scrollTop = 0;
+                document.getElementById('chat-user-list').scrollTop = 0;
             } else if (screenId === 'chat') {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
             }
         }
         
         // Muestra un mensaje toast temporal
-        function showToast(message) {
-            toast.textContent = message;
-            toast.classList.add('show');
+        function showToast(message, toastElement) {
+            toastElement.textContent = message;
+            toastElement.classList.add('show');
             
             setTimeout(() => {
-                toast.classList.remove('show');
+                toastElement.classList.remove('show');
             }, 3000);
         }
         
         // Cambia el estado de visibilidad del usuario
         function toggleVisibility() {
+            const toggleSwitch = document.querySelector('.toggle-switch');
+            const toggleKnob = document.querySelector('.toggle-knob');
+            const toggleLabel = document.querySelector('.toggle-label');
+            const toast = document.getElementById('toast');
+            
             isVisible = !isVisible;
             
             if (isVisible) {
@@ -1532,14 +1554,14 @@
                 toggleKnob.innerHTML = '<i class="fas fa-eye"></i>';
                 toggleLabel.textContent = 'Visible';
                 toggleLabel.classList.add('active');
-                showToast('Ahora eres visible para otros usuarios cerca de ti');
+                showToast('Ahora eres visible para otros usuarios cerca de ti', toast);
             } else {
                 toggleSwitch.classList.remove('active');
                 toggleKnob.classList.remove('active');
                 toggleKnob.innerHTML = '<i class="fas fa-eye-slash"></i>';
                 toggleLabel.textContent = 'Oculto';
                 toggleLabel.classList.remove('active');
-                showToast('Modo oculto activado');
+                showToast('Modo oculto activado', toast);
             }
             
             // Simular vibración
